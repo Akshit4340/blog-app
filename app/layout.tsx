@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Geist } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/web/Navbar";
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -24,10 +25,22 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="en" suppressHydrationWarning
+      className={cn("h-full", "antialiased", poppins.variable, "font-sans", geist.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8">
+              
+              {children}
+            </main>
+          </ThemeProvider>
+      </body>
     </html>
   );
 }
