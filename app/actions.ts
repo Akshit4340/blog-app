@@ -22,5 +22,6 @@ export const createBlogAction = async (values: z.infer<typeof blogSchema>) => {
     body: parsed.data.content,
   }, {token});
 
+
   return redirect("/")
 };
