@@ -1,5 +1,6 @@
 "use client";
 
+import { createBlogAction } from "@/app/actions";
 import { blogSchema } from "@/app/schemas/blog";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,13 +41,21 @@ const CreatePage = () => {
   });
 
   const onSubmit = (values: z.infer<typeof blogSchema>) => {
-    startTransition(() => {
-      mutation({
-        title: values.title,
-        body: values.content,
-      });
-      toast.success("Post created successfully");
-      router.push("/");
+    startTransition(async () => {
+      /**
+       * @description client side action
+       */
+      //   mutation({
+      //     title: values.title,
+      //     body: values.content,
+      //   });
+      //   toast.success("Post created successfully");
+      //   router.push("/");
+
+      /**
+       * @description server side action
+       */
+      await createBlogAction(values);
     });
   };
   return (
