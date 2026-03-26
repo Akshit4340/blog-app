@@ -18,25 +18,26 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { api } from "@/convex/_generated/api";
+// import { api } from "@/convex/_generated/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "convex/react";
+// import { useMutation } from "convex/react";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 import z from "zod/v3";
 
 const CreatePage = () => {
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  const mutation = useMutation(api.posts.createPost);
+  // const router = useRouter();
+  // const mutation = useMutation(api.posts.createPost);
   const form = useForm({
     resolver: zodResolver(blogSchema),
     defaultValues: {
       title: "",
       content: "",
+      image: undefined,
     },
   });
 
@@ -105,6 +106,30 @@ const CreatePage = () => {
                       aria-invalid={fieldState.invalid}
                       placeholder="Content of the blog"
                       {...field}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="image"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Image</FieldLabel>
+                    <Input
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Content of the blog"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          field.onChange(file);
+                        }
+                      }}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
