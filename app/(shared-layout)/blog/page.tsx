@@ -25,7 +25,7 @@ const BlogPage = () => {
       <Suspense
         fallback={
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, i) => (
+            {Array.from({ length: 6 }).map((_, i) => (
               <Card key={i} className="pt-0">
                 <div className="h-48 w-full overflow-hidden relative">
                   <Skeleton className="h-full w-full" />
@@ -61,6 +61,7 @@ const LoadBlog = async () => {
             <Image
               fill
               src={
+                post.imageUrl ??
                 "https://images.unsplash.com/photo-1485988412941-77a35537dae4?q=80&w=1496&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               }
               alt="image"
